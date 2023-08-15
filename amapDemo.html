@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地图api</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        #container{
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" ></div>
+    <script src="./js/init.min.js"></script>
+    <script>
+        // 高德地图
+        initMap(
+            'container',
+            '85ce7a4398a28e49aa6c3b7136563114',
+            'b4ab91dd3baabedd860b2cd85d1e0ba0',
+            'amap',
+            '2.0',
+            {
+                center: [113.92, 22.58]
+            }).then((res) => {
+                console.log(res);
+                
+                bindEvent.on('click', (e) => {
+                    console.log(e);
+                }, res);
+                const marker = getMapMarker({
+                    position: toLngLat(113.92, 22.58),
+                    icon: 'https://a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+                    anchor: 'bottom-center',
+                });
+                bindEvent.on('click', (e) => {
+                    console.log(e);
+                }, marker);
+                res.add(marker);
+                // res.setMapTypes('SATELLITE');
+                const polyline = getMapPolyline({
+                    path: [toLngLat(113.921174,22.591516), toLngLat(113.930444,22.58531), toLngLat(113.922683,22.582306)]
+                });
+                res.add(polyline);
+                // const polygon = getMapPolygon({
+                //     path: [toLngLat(113.921174,22.591516), toLngLat(113.930444,22.58531), toLngLat(113.922683,22.582306)]
+                // });
+                // res.add(polygon);
+                // setMapPlugin(['AMap.DistrictSearch']).then(() => {
+                //     const districtSearch = getMapDistrictSearch({
+                //         // 关键字对应的行政区级别，country表示国家
+                //         level: 'country',
+                //         //  显示下级行政区级数，1表示返回下一级行政区
+                //         subdistrict: 1
+                //     });
+                //     districtSearch.search('中国', function(status, result) {
+                //         // 查询成功时，result即为对应的行政区信息
+                //         console.log(status, result);
+                //     })
+                // })
+            });
+    </script>
+</body>
+</html>

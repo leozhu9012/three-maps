@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地图api</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        #container{
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" ></div>
+    <!-- <script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=pxhBz6TyFqCLoPNF1ZuK1hcpG2xrKLKI"></script> -->
+    <script src="./js/init.min.js"></script>
+    <script>
+        window.onload = function(){
+            initMap(
+                'container',
+                '24548501',
+                'pxhBz6TyFqCLoPNF1ZuK1hcpG2xrKLKI',
+                'bmap',
+                '1.0',
+                {
+                    center: [113.92, 22.58]
+                }
+            ).then((res) => {
+                console.log(res, window);
+                
+                bindEvent.on('click', (e) => {
+                    console.log(e);
+                }, res);
+                const marker = getMapMarker({
+                    position: toLngLat(113.92, 22.58),
+                    icon: 'https://a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+                    // anchor: 'bottom-center',
+                });
+                bindEvent.on('click', (e) => {
+                    console.log(e);
+                }, marker);
+                res.add(marker);
+                const polyline = getMapPolyline({
+                    path: [toLngLat(113.921174,22.591516), toLngLat(113.930444,22.58531), toLngLat(113.922683,22.582306)]
+                });
+                res.add(polyline);
+                // const polygon = getMapPolygon({
+                //     path: [toLngLat(113.921174,22.591516), toLngLat(113.930444,22.58531), toLngLat(113.922683,22.582306)]
+                // });
+                // res.add(polygon);
+            });
+        }
+    </script>
+</body>
+</html>
